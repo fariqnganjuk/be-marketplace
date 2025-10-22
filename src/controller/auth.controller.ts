@@ -441,10 +441,17 @@ export default {
         },
       });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        message: "Internal server error",
-      });
-    }
+  console.error("Login error:", error); // tambahkan ini
+  if (error instanceof z.ZodError) {
+    return res.status(400).json({
+      message: error.issues[0].message,
+    });
+  } else {
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
+
   },
 };
