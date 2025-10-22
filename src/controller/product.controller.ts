@@ -76,7 +76,7 @@ export default {
     }
   },
   async index(req: IReqUser, res: Response) {
-    const { search, category, page, limit } = req.query;
+    const { search, category, page=1, limit=10 } = req.query;
     try {
       const products = await prisma.product.findMany({
         where: {
